@@ -36,6 +36,8 @@ export default function Chat() {
   const chatEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api/v1";
+
   // Fetch available voices and assign to characters by gender
   useEffect(() => {
     if (typeof window === "undefined" || !window.speechSynthesis) return;
@@ -65,7 +67,7 @@ export default function Chat() {
   }, [characters]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/characters")
+    fetch(`${apiUrl}/characters`)
       .then((res) => res.json())
       .then((data) => setCharacters(data));
   }, []);
@@ -144,7 +146,7 @@ export default function Chat() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("http://localhost:3000/api/v1/chat", {
+      const res = await fetch(`${apiUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

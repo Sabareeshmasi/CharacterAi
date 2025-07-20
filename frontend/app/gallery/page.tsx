@@ -12,8 +12,10 @@ export default function Gallery() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api/v1";
+
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/characters")
+    fetch(`${apiUrl}/characters`)
       .then((res) => res.json())
       .then((data) => {
         setCharacters(data);
