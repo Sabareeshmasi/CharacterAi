@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/characterai', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
