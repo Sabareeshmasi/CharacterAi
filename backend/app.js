@@ -1,13 +1,13 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/api');
 
 const app = express();
@@ -17,7 +17,9 @@ app.use(cors());
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+})
+.then(() => console.log('✅ MongoDB connected successfully'))
+.catch((err) => console.error('❌ MongoDB connection error:', err));
 
 mongoose.connection.on('connected', () => {
   console.log('Connected to MongoDB');
